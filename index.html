@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MindWell - Mental Health Support</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 2a9 9 0 0 1 9 9c0 3.6-2.5 5.9-5 7.4m-9.6-1.7A8.98 8.98 0 0 1 3 11a9 9 0 0 1 9-9v0"></path>
+                    <path d="M12 7a2 2 0 0 1 2 2 2 2 0 0 1-2 2 2 2 0 0 1-2-2 2 2 0 0 1 2-2Z"></path>
+                    <path d="M12 18v-1"></path>
+                </svg>
+                <span>MindWell</span>
+            </div>
+            <div class="language-selector">
+                <button class="language-btn active" data-lang="en">English</button>
+                <button class="language-btn" data-lang="sq">Shqip</button>
+            </div>
+        </header>
+
+        <div class="main-content">
+            <div class="tab-container">
+                <div class="tabs">
+                    <div class="tab active" data-tab="mood">Check-In</div>
+                    <div class="tab" data-tab="resources">Resources</div>
+                    <div class="tab" data-tab="history">My Journey</div>
+                </div>
+                
+                <div class="tab-content active" id="mood-tab">
+                    <h1>How are you feeling today?</h1>
+                    
+                    <div class="feeling-assessment">
+                        <div>
+                            <p class="question">Select the option that best describes your current mood:</p>
+                            <div class="mood-selector">
+                                <div class="mood-option" data-mood="happy">
+                                    <div class="mood-emoji">😊</div>
+                                    <div class="mood-label">Happy</div>
+                                </div>
+                                <div class="mood-option" data-mood="calm">
+                                    <div class="mood-emoji">😌</div>
+                                    <div class="mood-label">Calm</div>
+                                </div>
+                                <div class="mood-option" data-mood="anxious">
+                                    <div class="mood-emoji">😰</div>
+                                    <div class="mood-label">Anxious</div>
+                                </div>
+                                <div class="mood-option" data-mood="sad">
+                                    <div class="mood-emoji">😔</div>
+                                    <div class="mood-label">Sad</div>
+                                </div>
+                                <div class="mood-option" data-mood="angry">
+                                    <div class="mood-emoji">😠</div>
+                                    <div class="mood-label">Angry</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <p class="question">What's on your mind today? (Optional)</p>
+                            <textarea id="thoughts" rows="3" style="width: 100%; padding: 15px; border-radius: 10px; border: 1px solid #ddd; resize: none;"></textarea>
+                        </div>
+                        
+                        <div>
+                            <p class="question">What type of support would you find helpful right now?</p>
+                            <div class="interest-options">
+                                <div class="interest-tag" data-interest="meditation">Meditation</div>
+                                <div class="interest-tag" data-interest="breathing">Breathing Exercises</div>
+                                <div class="interest-tag" data-interest="motivation">Motivation</div>
+                                <div class="interest-tag" data-interest="relaxation">Relaxation</div>
+                                <div class="interest-tag" data-interest="sleep">Better Sleep</div>
+                                <div class="interest-tag" data-interest="gratitude">Gratitude</div>
+                            </div>
+                        </div>
+                        
+                        <button class="primary-btn" id="get-recommendations">Get Personalized Support</button>
+                    </div>
+                    
+                    <div class="recommendations" id="recommendations">
+                        <h2 style="margin-bottom: 20px; color: var(--primary);">Personalized Recommendations</h2>
+                        
+                        <div class="recommendation-card breathing-recommendation">
+                            <div class="recommendation-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path>
+                                    <path d="M12 6v12"></path>
+                                    <path d="M6 12h12"></path>
+                                </svg>
+                            </div>
+                            <div class="recommendation-content">
+                                <h3>4-7-8 Breathing Exercise</h3>
+                                <p>This simple breathing technique can help reduce anxiety and promote relaxation. Breathe in for 4 seconds, hold for 7 seconds, and exhale for 8 seconds.</p>
+                                <div class="recommendation-actions">
+                                    <button class="action-btn primary" id="start-breathing">Start Exercise</button>
+                                </div>
+                                
+                                <div class="breathing-exercise hidden" id="breathing-container">
+                                    <div class="progress-ring">
+                                        <svg width="60" height="60" class="progress-ring">
+                                            <circle class="progress-ring__circle" stroke="#5b8eeb" stroke-width="4" fill="transparent" r="26" cx="30" cy="30" stroke-dasharray="164" stroke-dashoffset="0"></circle>
+                                        </svg>
+                                        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 14px; font-weight: bold;" id="breathing-text">
+                                            Ready
+                                        </div>
+                                    </div>
+                                    <p id="breathing-instruction" style="margin-top: 20px; text-align: center; font-weight: 600;">Get ready to begin</p>
+                                    <div class="breathing-controls">
+                                        <button class="action-btn primary" id="start-pause-breathing">Start</button>
+                                        <button class="action-btn" id="reset-breathing">Reset</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="recommendation-card meditation-recommendation">
+                            <div class="recommendation-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path>
+                                    <path d="M12 8v4l2 2"></path>
+                                </svg>
+                            </div>
+                            <div class="recommendation-content">
+                                <h3>5-Minute Guided Meditation</h3>
+                                <p>Take a short break to clear your mind and reduce stress with this brief guided meditation.</p>
+                                <div id="meditation-player">
+                                    <audio controls class="audio-player">
+                                        <source src="/api/placeholder/400/320" type="audio/mpeg">
+                                        Your browser does not support the audio element.
+                                    </audio>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="recommendation-card gratitude-recommendation">
+                            <div class="recommendation-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                                </svg>
+                            </div>
+                            <div class="recommendation-content">
+                                <h3>Gratitude Practice</h3>
+                                <p>Take a moment to reflect on three things you're grateful for today. This simple practice can shift your focus to the positive aspects of your life.</p>
+                                <div style="background: #f8f9fa; padding: 15px; border-radius: 10px; margin-top: 15px;">
+                                    <p style="font-weight: 600; margin-bottom: 10px;">Today I'm grateful for:</p>
+                                    <textarea rows="3" style="width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #ddd; resize: none;"></textarea>
+                                    <button class="action-btn primary" style="margin-top: 10px;">Save to Journal</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="recommendation-card motivation-recommendation">
+                            <div class="recommendation-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M5 3v4M3 5h4M6 17v4M4 19h4M13 3l4 4L5 19l-4-4z"></path>
+                                    <path d="M14 4l6 6"></path>
+                                    <path d="M17 7l3 3"></path>
+                                </svg>
+                            </div>
+                            <div class="recommendation-content">
+                                <h3>Daily Inspiration</h3>
+                                <div id="quote-container">
+                                    <div style="display: flex; justify-content: center; padding: 20px;">
+                                        <span class="loader"></span>
+                                    </div>
+                                    <div id="daily-quote" class="hidden">
+                                        <p style="font-size: 18px; font-style: italic; margin-bottom: 10px;">"The greatest glory in living lies not in never falling, but in rising every time we fall."</p>
+                                        <p style="text-align: right; font-weight: 600;">— Nelson Mandela</p>
+                                    </div>
+                                </div>
+                                <div class="recommendation-actions">
+                                    <button class="action-btn primary" id="new-quote">New Quote</button>
+                                    <button class="action-btn" id="save-quote">Save Quote</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tab-content" id="resources-tab">
+                    <h1>Mental Health Resources</h1>
+                    
+                    <div class="resource-section">
+                        <div class="resource-card">
+                            <div class="resource-img">
+                                <img src="/api/placeholder/400/320" alt="Mindfulness Meditation Guide" />
+                            </div>
+                            <div class="resource-content">
+                                <h3>Mindfulness Meditation Guide</h3>
+                                <p>Learn the basics of mindfulness meditation and how it can improve your mental well-being.</p>
+                                <button class="action-btn primary" style="margin-top: 15px;">Read Article</button>
+                            </div>
+                        </div>
+                        
+                        <div class="resource-card">
+                            <div class="resource-img">
+                                <img src="/api/placeholder/400/320" alt="Stress Management Techniques" />
+                            </div>
+                            <div class="resource-content">
+                                <h3>Stress Management Techniques</h3>
+                                <p>Discover effective strategies to manage stress and improve your resilience.</p>
+                                <button class="action-btn primary" style="margin-top: 15px;">Read Article</button>
+                            </div>
+                        </div>
+                        
+                        <div class="resource-card">
+                            <div class="resource-img">
+                                <img src="/api/placeholder/400/320" alt="Sleep Improvement Guide" />
+                            </div>
+                            <div class="resource-content">
+                                <h3>Sleep Improvement Guide</h3>
+                                <p>Tips and techniques for better sleep quality to support your mental health.</p>
+                                <button class="action-btn primary" style="margin-top: 15px;">Read Article</button>
+                            </div>
+                        </div>
+                        
+                        <div class="resource-card">
+                            <div class="resource-img">
+                                <img src="/api/placeholder/400/320" alt="Anxiety Coping Strategies" />
+                            </div>
+                            <div class="resource-content">
+                                <h3>Anxiety Coping Strategies</h3>
+                                <p>Learn practical approaches to manage anxiety in daily life.</p>
+                                <button class="action-btn primary" style="margin-top: 15px;">Read Article</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tab-content" id="history-tab">
+                    <h1>My Wellness Journey</h1>
+                    
+                    <div id="no-history" style="text-align: center; padding: 40px 0;">
+                        <p>Your wellness journey will appear here after you complete your first check-in.</p>
+                        <button class="action-btn primary" style="margin-top: 20px;" id="go-to-checkin">Start Your First Check-in</button>
+                    </div>
+                    
+                    <div id="history-content" class="hidden">
+                        <div class="history-section">
+                            <div class="history-card">
+                                <div class="history-date">April 15, 2025 • 10:30 AM</div>
+                                <div class="history-mood">
+                                    <span class="history-mood-emoji">😌</span>
+                                    <span>Calm</span>
+                                </div>
+                                <p>"I'm feeling better today after trying the breathing exercises."</p>
+                            </div>
+                            
+                            <div class="history-card">
+                                <div class="history-date">April 14, 2025 • 8:15 PM</div>
+                                <div class="history-mood">
+                                    <span class="history-mood-emoji">😰</span>
+                                    <span>Anxious</span>
+                                </div>
+                                <p>"Feeling stressed about the upcoming presentation."</p>
+                            </div>
+                            
+                            <div class="history-card">
+                                <div class="history-date">April 12, 2025 • 9:45 AM</div>
+                                <div class="history-mood">
+                                    <span class="history-mood-emoji">😊</span>
+                                    <span>Happy</span>
+                                </div>
+                                <p>"Had a great day with friends. Feeling refreshed."</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>MindWell © 2025 • Perparim Asllani</p>
+            <p style="margin-top: 10px;">All data is stored locally on your device for 180 days</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>                    
